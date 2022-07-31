@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -24,7 +25,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             FlowPracticeTheme {
                 val viewModel = viewModel<FlowPracticeViewModel>()
-                val timer = viewModel.countDownFlow.collectAsState(initial = 10)
+                //val timer = viewModel.countDownFlow.collectAsState(initial = 10)
+                val count = viewModel.stateFlow.collectAsState(initial = 10)
+
 
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -32,11 +35,20 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
+                        /*
+                        Example for floe basic
                         Text(
                             modifier = Modifier.align(Alignment.Center),
                             fontSize = 30.sp,
                             text = timer.value.toString()
-                        )
+                        )*/
+
+                        Button(
+                            modifier = Modifier.align(Alignment.Center),
+                            onClick = {viewModel.incrementCounter()}
+                        ) {
+                            Text(text = "Counter : ${count.value}")
+                        }
                     }
                 }
             }

@@ -8,6 +8,12 @@ import kotlinx.coroutines.launch
 
 class FlowPracticeViewModel:ViewModel() {
 
+    private val _stateFlow = MutableStateFlow(0)
+    val stateFlow = _stateFlow.asStateFlow()
+
+    fun incrementCounter(){
+        _stateFlow.value +=1
+    }
      val countDownFlow = flow<Int> {
         val startingValue = 10
         var currentValue = startingValue
