@@ -2,11 +2,14 @@ package com.vikas.flowpractice
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class FlowPracticeViewModel:ViewModel() {
+class FlowPracticeViewModel(
+    private val dispatcher: DispatcherProvider
+):ViewModel() {
 
     private val _stateFlow = MutableStateFlow(0)
     val stateFlow = _stateFlow.asStateFlow()
@@ -32,18 +35,18 @@ class FlowPracticeViewModel:ViewModel() {
      }
          .map { time ->
              time * 2
-         }
+         }.flowOn(dispatcher.main)
 
     init {
         collectFlow()
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.main) {
             sharedFlow.collect{
                 //delay(2000L)
                 println("Flow first: the received number is $it")
             }
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.main) {
             sharedFlow.collect{
                 delay(3000L)
                 println("Flow second: the received number is $it")
