@@ -1,15 +1,17 @@
 package com.vikas.flowpractice
 
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 
+@ExperimentalCoroutinesApi
 class TestDispatchers:DispatcherProvider {
-    val testDispatcher = StandardTestDispatcher()
+    val testDispatcher = TestCoroutineDispatcher()
     override val main: CoroutineDispatcher
-        get() = TODO("Not yet implemented")
+        get() = testDispatcher
     override val io: CoroutineDispatcher
-        get() = TODO("Not yet implemented")
+        get() = testDispatcher
     override val default: CoroutineDispatcher
-        get() = TODO("Not yet implemented")
+        get() = testDispatcher
 }
