@@ -47,8 +47,6 @@ class FlowPracticeViewModel(
             }
         }
 
-        squareNumber(4)
-
     }
 
     fun squareNumber(number: Int){
