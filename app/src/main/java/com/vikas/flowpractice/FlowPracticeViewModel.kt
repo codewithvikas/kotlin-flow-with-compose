@@ -21,7 +21,7 @@ class FlowPracticeViewModel(
         _stateFlow.value +=1
     }
      val countDownFlow = flow<Int> {
-        val startingValue = 10
+        val startingValue = 5
         var currentValue = startingValue
         emit(startingValue)
         while (currentValue > 0){
@@ -29,13 +29,7 @@ class FlowPracticeViewModel(
             currentValue--
             emit(currentValue)
         }
-    }
-         .filter { time ->
-         time %2 == 0
-     }
-         .map { time ->
-             time * 2
-         }.flowOn(dispatcher.main)
+    }.flowOn(dispatcher.main)
 
     init {
         collectFlow()
